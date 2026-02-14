@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Archana J| Portfolio</title>
+
+<style>
+/* ---------- RESET ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  font-family: "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------- MATRIX CANVAS ---------- */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ---------- HERO CONTENT ---------- */
+.hero {
+  position: relative;
+  z-index: 10;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-content {
+  pointer-events: auto;
+  padding: 1rem;
+}
+
+/* ---------- TEXT STYLES ---------- */
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  animation: jumpIn 1.2s ease-out;
+  text-shadow:
+    0 0 10px rgba(56,189,248,0.6),
+    0 0 25px rgba(56,189,248,0.3);
+}
+
+.hero h3 {
+  color: #38bdf8;
+}
+
+.hero h2 {
+  color: #ffb3ff;
+}
+
+.hero p {
+  margin-top: 1rem;
+  color: #9fbcd3;
+  font-size: 1.1rem;
+  text-shadow: 0 0 10px rgba(56,189,248,0.3);
+}
+
+/* ---------- BUTTON ---------- */
+.hero a {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 12px 34px;
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  transition: 0.4s ease;
+  box-shadow: 0 0 15px rgba(56,189,248,0.3);
+}
+
+.hero a:hover {
+  background: rgba(56,189,248,0.15);
+  box-shadow: 0 0 25px rgba(56,189,248,0.6);
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes jumpIn {
+  0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+  60% { opacity: 1; transform: translateY(-8px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 600px) {
+  .hero h1 {
+    font-size: 2.3rem;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+
+  <canvas id="matrix"></canvas>
+
+  <div class="hero">
+    <div class="hero-content">
+      <h2>THANK YOU FOR VISITING MY PORTFOLIO</h2><br>
+      <p>Hello, I'm</p>
+      <h1>ARCHANA J</h1>
+      <p>Computer Science Engineering Student</p><br>
+      <a href="page2.html" id="exploreBtn">Explore</a>
+    </div>
+  </div>
+
+</body>
+
+
+<!-- MATRIX SCRIPT -->
+<script>
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const letters = "01";
+const fontSize = 16;
+const columns = canvas.width / fontSize;
+const drops = Array(Math.floor(columns)).fill(1);
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0, 10, 30, 0.08)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#38bdf8";
+  ctx.font = fontSize + "px monospace";
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = letters[Math.floor(Math.random() * letters.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+
+setInterval(drawMatrix, 50);
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+
+
+
+</body>
+</html>
